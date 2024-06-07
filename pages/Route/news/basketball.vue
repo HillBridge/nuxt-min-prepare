@@ -1,13 +1,10 @@
 <template>
     <div>
-        <h1>Foo Page</h1>
-        <FooHello />
-        <NuxtLink to="/">Back to home page</NuxtLink>
+        <h1>sub basketball page 嵌套路由</h1>
     </div>
 </template>
 
 <script setup>
-
 </script>
 
 <style lang="scss" scoped></style>
