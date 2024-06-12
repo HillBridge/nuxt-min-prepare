@@ -11,7 +11,6 @@ console.log('app vue')
 try {
     // useFetch 服务端渲染
     const { data } = await useFetch('http://localhost:3003/userInfo')
-    console.log('data', data.value.data.userInfo)
     if (data.value.code === '0') {
         setUsername(data.value.data.userInfo.username)
         useToken(data.value.data.userInfo.love)
@@ -23,8 +22,6 @@ catch (err) {
 
 
 onMounted(() => {
-    console.log('onmounted')
-
     setTimeout(() => {
         // 适合通过接口获取的全局公共使用的数据, 刷新通过接口重新获取值
         // 不适合token的存储, 一刷新就失效, token需要有一个持久化存储的地方

@@ -29,6 +29,8 @@ const color = useColor()
 // 从pinia中获取, storeToRefs转为响应式数据
 const { username } = storeToRefs(useStateStore())
 
+const nuxtApp = useNuxtApp()
+console.log('从nuxtApp中获取username', nuxtApp.$username())
 
 </script>
 
