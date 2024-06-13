@@ -14,7 +14,10 @@
         <div>
             <input type="password" v-model="password" placeholder="password">
         </div>
-        <button @click="handleLogin">客户端调用¥fetch去登录</button>
+        <button @click="handleLogin">客户端调用$fetch去登录</button>
+        <div>===================================</div>
+        <button @click="getUserInfo">登录获取到token, 用token去获取userInfo</button>
+
         <div>
             <NuxtLink to="/api">Back</NuxtLink>
         </div>
@@ -22,7 +25,10 @@
 </template>
 
 <script setup>
+import Cookies from 'universal-cookie';
+
 const { $clientFetch } = useNuxtApp()
+const { setupAuthToken } = useStateStore()
 const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 // $fetch单独使用, 一共执行2次, 会在服务端执行一次, 在客户端也会执行一次
 // const resD = await $fetch('/api/user')
@@ -44,12 +50,41 @@ const password = ref('123456')
 const handleLogin = async () => {
     const requestData = {
         username: username.value,
-        password: password.value,
+        password: password.value
     }
     try {
         const loginRes = await $clientFetch.user.login(requestData)
         if (loginRes.code === '0') {
-            alert(loginRes.msg)
+            setupAuthToken(loginRes.data.token)
+
+            console.log('ddd', loginRes.data.token)
+            const cookies = new Cookies(null, { path: '/' });
+            cookies.set('_tt', 555666, { httpOnly: true });
+            console.log('yy', cookies.get('_tt'))
+            // useFetch("/api/set-cookie", {
+            //     headers: {
+            //         tt: loginRes.data.token
+            //     }
+            // });
+            // const token = useCookie("token", {
+            //     maxAge: 6000 * 24,
+            //     HttpOnly: true,
+            //     SameSite: true,
+            //     default: () => loginRes.data.token
+            // });
+            alert(loginRes.msg + loginRes.data.token)
+        }
+    } catch (err) {
+    }
+}
+
+
+const getUserInfo = async () => {
+    try {
+        const userInfoRes = await $clientFetch.user.getUserInfo()
+        console.log('userInfoRes', userInfoRes)
+        if (userInfoRes.code === '0') {
+            alert(userInfoRes.data.userInfo.username)
         }
     } catch (err) {
     }

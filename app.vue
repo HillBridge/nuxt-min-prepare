@@ -4,9 +4,9 @@
     </div>
 </template>
 <script setup>
-const { setUsername } = useStateStore()
+const { setUsername, authToken } = useStateStore()
 // 程序最早执行的组件
-console.log('app vue')
+console.log('app vue', authToken)
 
 try {
     // useFetch 服务端渲染

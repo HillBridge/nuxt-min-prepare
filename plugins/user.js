@@ -1,6 +1,6 @@
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook("app:created", async () => {
-    console.log("init----app:created");
+    // console.log("init----app:created");
     try {
       // useFetch 服务端渲染
       const { data } = await useFetch("http://localhost:3003/userInfo");
