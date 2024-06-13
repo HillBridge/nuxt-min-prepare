@@ -9,14 +9,22 @@
         <button @click="getDataFromClient">客户端获取数据</button>
         <p>客户端数据获取展示: name: {{ clientData.username }} | age: {{ clientData.age }}</p>
         <div>
+            <input type="text" v-model="username" placeholder="username">
+        </div>
+        <div>
+            <input type="password" v-model="password" placeholder="password">
+        </div>
+        <button @click="handleLogin">客户端调用¥fetch去登录</button>
+        <div>
             <NuxtLink to="/api">Back</NuxtLink>
         </div>
     </div>
 </template>
 
 <script setup>
+const { $clientFetch } = useNuxtApp()
 const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
-//$fetch单独使用, 一共执行2次, 会在服务端执行一次, 在客户端也会执行一次
+// $fetch单独使用, 一共执行2次, 会在服务端执行一次, 在客户端也会执行一次
 // const resD = await $fetch('/api/user')
 // console.log('resD', resD)
 
@@ -30,6 +38,22 @@ const getDataFromClient = async () => {
     console.log('clientData', clientData.value)
 }
 
+const username = ref('admin')
+const password = ref('123456')
+
+const handleLogin = async () => {
+    const requestData = {
+        username: username.value,
+        password: password.value,
+    }
+    try {
+        const loginRes = await $clientFetch.user.login(requestData)
+        if (loginRes.code === '0') {
+            alert(loginRes.msg)
+        }
+    } catch (err) {
+    }
+}
 
 // 总结
 // 客户端请求数据就用$fetch

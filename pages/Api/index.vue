@@ -26,6 +26,7 @@ const token = useToken()
 // 从pinia中获取, storeToRefs转为响应式数据
 const { username } = storeToRefs(useStateStore())
 
+
 </script>
 
 <style lang="scss" scoped></style>

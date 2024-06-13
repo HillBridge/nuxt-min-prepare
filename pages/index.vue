@@ -30,7 +30,7 @@ const color = useColor()
 const { username } = storeToRefs(useStateStore())
 
 const nuxtApp = useNuxtApp()
-console.log('从nuxtApp中获取username', nuxtApp.$username())
+console.log('从nuxtApp中获取username', nuxtApp.$username)
 
 </script>
 
