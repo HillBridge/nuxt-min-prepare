@@ -18,4 +18,6 @@ export const useStateStore = defineStore('state', () => {
         authToken,
         setupAuthToken
     }
+}, {
+    persist: true 
 })

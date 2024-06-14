@@ -14,6 +14,7 @@
         <div>
             <input type="password" v-model="password" placeholder="password">
         </div>
+        <p>当前token: {{ authToken }}</p>
         <button @click="handleLogin">客户端调用$fetch去登录</button>
         <div>===================================</div>
         <button @click="getUserInfo">登录获取到token, 用token去获取userInfo</button>
@@ -25,10 +26,10 @@
 </template>
 
 <script setup>
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
 const { $clientFetch } = useNuxtApp()
-const { setupAuthToken } = useStateStore()
+const { setupAuthToken, authToken } = useStateStore()
 const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 // $fetch单独使用, 一共执行2次, 会在服务端执行一次, 在客户端也会执行一次
 // const resD = await $fetch('/api/user')
@@ -37,12 +38,13 @@ const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 const clientData = ref({})
 const getDataFromClient = async () => {
     const { data: resData } = await useFetch('http://localhost:3003/userInfo')
-    console.log('resData', resData.value)
+    // console.log('resData', resData.value)
     if (resData.value.code === '0') {
         clientData.value = resData.value.data.userInfo
     }
-    console.log('clientData', clientData.value)
 }
+
+getDataFromClient()
 
 const username = ref('admin')
 const password = ref('123456')
@@ -56,22 +58,6 @@ const handleLogin = async () => {
         const loginRes = await $clientFetch.user.login(requestData)
         if (loginRes.code === '0') {
             setupAuthToken(loginRes.data.token)
-
-            console.log('ddd', loginRes.data.token)
-            const cookies = new Cookies(null, { path: '/' });
-            cookies.set('_tt', 555666, { httpOnly: true });
-            console.log('yy', cookies.get('_tt'))
-            // useFetch("/api/set-cookie", {
-            //     headers: {
-            //         tt: loginRes.data.token
-            //     }
-            // });
-            // const token = useCookie("token", {
-            //     maxAge: 6000 * 24,
-            //     HttpOnly: true,
-            //     SameSite: true,
-            //     default: () => loginRes.data.token
-            // });
             alert(loginRes.msg + loginRes.data.token)
         }
     } catch (err) {

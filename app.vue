@@ -6,7 +6,7 @@
 <script setup>
 const { setUsername, authToken } = useStateStore()
 // 程序最早执行的组件
-console.log('app vue', authToken)
+console.log('app vue')
 
 try {
     // useFetch 服务端渲染
