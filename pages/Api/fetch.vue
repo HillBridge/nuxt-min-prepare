@@ -28,7 +28,10 @@
 <script setup>
 // import Cookies from 'universal-cookie';
 
-const { $clientFetch } = useNuxtApp()
+// const nuxtApp = useNuxtApp()
+// console.log('从nuxtApp中获取username', nuxtApp.$t)
+
+const { $clientFetch, $t } = useNuxtApp()
 const { setupAuthToken, authToken } = useStateStore()
 const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 // $fetch单独使用, 一共执行2次, 会在服务端执行一次, 在客户端也会执行一次
@@ -37,6 +40,7 @@ const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 
 const clientData = ref({})
 const getDataFromClient = async () => {
+    // console.log('authToken', $t)
     const { data: resData } = await useFetch('http://localhost:3003/userInfo')
     // console.log('resData', resData.value)
     if (resData.value.code === '0') {
