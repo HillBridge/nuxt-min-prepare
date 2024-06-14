@@ -40,7 +40,7 @@ const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 
 const clientData = ref({})
 const getDataFromClient = async () => {
-    // console.log('authToken', $t)
+    console.log('authToken', $t)
     const { data: resData } = await useFetch('http://localhost:3003/userInfo')
     // console.log('resData', resData.value)
     if (resData.value.code === '0') {
