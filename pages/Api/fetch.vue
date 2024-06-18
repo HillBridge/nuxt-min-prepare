@@ -15,7 +15,7 @@
             <input type="password" v-model="password" placeholder="password">
         </div>
         <p>当前token: {{ authToken }}</p>
-        <button @click="handleLogin">客户端调用$fetch去登录</button>
+        <button @click="handleToLogin">客户端调用$fetch去登录</button>
         <div>===================================</div>
         <button @click="getUserInfo">登录获取到token, 用token去获取userInfo</button>
 
@@ -30,6 +30,8 @@
 
 // const nuxtApp = useNuxtApp()
 // console.log('从nuxtApp中获取username', nuxtApp.$t)
+const state = useCookie('state')
+console.log('useCookie', state.value)
 
 const { $clientFetch, $t } = useNuxtApp()
 const { setupAuthToken, authToken } = useStateStore()
@@ -40,7 +42,7 @@ const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 
 const clientData = ref({})
 const getDataFromClient = async () => {
-    console.log('authToken', $t)
+    // console.log('authToken', $t)
     const { data: resData } = await useFetch('http://localhost:3003/userInfo')
     // console.log('resData', resData.value)
     if (resData.value.code === '0') {
@@ -53,7 +55,7 @@ getDataFromClient()
 const username = ref('admin')
 const password = ref('123456')
 
-const handleLogin = async () => {
+const handleToLogin = async () => {
     const requestData = {
         username: username.value,
         password: password.value

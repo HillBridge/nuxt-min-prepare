@@ -12,7 +12,7 @@ try {
     // useFetch 服务端渲染
     const { data } = await useFetch('http://localhost:3003/userInfo')
     if (data.value.code === '0') {
-        setUsername(data.value.data.userInfo.username)
+        // setUsername(data.value.data.userInfo.username)
         useToken(data.value.data.userInfo.love)
     }
 }

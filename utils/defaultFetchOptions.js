@@ -6,10 +6,10 @@ export default {
   timeout: 120000,
   onRequest({ options }) {
     // 添加请求拦截器
-    const stateStore = useStateStore();
-    // console.log("onRequest-options", stateStore.authToken);
-    if (stateStore.authToken) {
-      options.headers.authToken = stateStore.authToken;
+    const state = useCookie("state"); // 从cookie中获取token
+    console.log("onRequest-options-useStateStore", state.value);
+    if (state.value?.authToken) {
+      options.headers.authToken = state.value.authToken;
     }
     return options;
   },

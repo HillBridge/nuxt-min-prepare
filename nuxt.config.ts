@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   piniaPersistedstate: {
     cookieOptions: {
       // httpOnly: true,
+      maxAge: 3600*2, // 2h
     },
     storage: 'cookies',
   },
