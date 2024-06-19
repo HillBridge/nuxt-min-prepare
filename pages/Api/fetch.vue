@@ -32,6 +32,13 @@
 </template>
 
 <script setup>
+
+definePageMeta({
+    layout: 'custom',
+    layoutTransition: {
+        name: 'slide-in'
+    }
+})
 // import Cookies from 'universal-cookie';
 
 // const nuxtApp = useNuxtApp()
