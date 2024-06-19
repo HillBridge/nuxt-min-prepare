@@ -33,6 +33,9 @@
 const state = useCookie('state')
 console.log('useCookie', state.value)
 
+// const headers = useRequestHeaders(['cookie'])
+// console.log('headers', headers)
+
 const { $clientFetch, $t } = useNuxtApp()
 const { setupAuthToken, authToken } = useStateStore()
 const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
@@ -43,14 +46,19 @@ const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 const clientData = ref({})
 const getDataFromClient = async () => {
     // console.log('authToken', $t)
-    const { data: resData } = await useFetch('http://localhost:3003/userInfo')
-    // console.log('resData', resData.value)
-    if (resData.value.code === '0') {
-        clientData.value = resData.value.data.userInfo
+    const resData = await $clientFetch.user.getUserInfo()
+    console.log('resData--from--client', resData)
+    if (resData.code === '0') {
+        clientData.value = resData.data.userInfo
     }
 }
 
-getDataFromClient()
+const getDataFromServer = async () => {
+    const { data: resData } = await $clientFetch.user.getUserInfo2()
+    console.log('resData--from--server', resData)
+
+}
+getDataFromServer()
 
 const username = ref('admin')
 const password = ref('123456')

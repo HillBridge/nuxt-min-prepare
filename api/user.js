@@ -13,4 +13,16 @@ export default ($fetch) => ({
       method: "get",
     });
   },
+  async getUserInfo2() {
+    const res = await useAsyncData("userInfo", () =>
+      $fetch("/userInfo", {
+        ...defaultFetchOptions,
+        method: "get",
+      })
+    );
+    return {
+      ...res,
+      data: res.data.value,
+    };
+  },
 });

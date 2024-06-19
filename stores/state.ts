@@ -19,5 +19,10 @@ export const useStateStore = defineStore('state', () => {
         setupAuthToken
     }
 }, {
-    persist: true 
+    persist: {
+        storage: persistedState.cookiesWithOptions({
+            // httpOnly: true,
+            maxAge: 3600
+        }),
+    }
 })
