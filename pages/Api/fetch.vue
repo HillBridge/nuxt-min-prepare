@@ -67,10 +67,10 @@ const getDataFromClient = async () => {
 const serverData = ref({})
 const getDataFromServerByFetch = async () => {
     const { data: resData } = await $api.user.getUserInfo2()
-    console.log('resData--from--server--$fetch', resData)
-    if (resData.code === '0') {
-        serverData.value = resData.data.userInfo
-    }
+    console.log('resData--from--server--$fetch111', resData)
+    // if (resData.code === '0') {
+    //     serverData.value = resData.data.userInfo
+    // }
 }
 getDataFromServerByFetch()
 
@@ -81,7 +81,7 @@ const getDataFromServerByUseFetch = async () => {
     console.log('resData--from--server--$useFetch--transform筛选数据返回, 减少有效负载', username)
     userName.value = username
 }
-getDataFromServerByUseFetch()
+// getDataFromServerByUseFetch()
 
 const username = ref('admin')
 const password = ref('123456')
