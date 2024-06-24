@@ -4,6 +4,8 @@ export default {
     "Content-Type": "application/json",
   },
   timeout: 120000,
+  credentials: "include",
+  // mode: "cors",
   onRequest({ options, request }) {
     // 添加请求拦截器
     const state = useCookie("state"); // 从cookie中获取token

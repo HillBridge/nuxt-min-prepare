@@ -94,7 +94,9 @@ const handleToLogin = async () => {
     try {
         const loginRes = await $api.user.login(requestData)
         if (loginRes.code === '0') {
-            setupAuthToken(loginRes.data.token)
+            // setupAuthToken(loginRes.data.token)
+            const res = useCookie('qiao-token')
+            console.log('token', res)
             alert(loginRes.msg + loginRes.data.token)
         }
     } catch (err) {

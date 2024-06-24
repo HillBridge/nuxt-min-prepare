@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'layout', mode: 'out-in' }
   },
   ssr: true,
-  modules: ['@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt'],
+  modules: ['@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@nuxt/content'],
   // piniaPersistedstate: {
   //   cookieOptions: {
   //     httpOnly: true,
