@@ -17,6 +17,10 @@
             <NuxtLink to="/api">Go to route api</NuxtLink>
         </div>
 
+        <div>
+            <NuxtLink to="/config">Go to config page</NuxtLink>
+        </div>
+
         <Footer />
     </div>
 </template>

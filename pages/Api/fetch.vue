@@ -39,11 +39,10 @@ definePageMeta({
         name: 'slide-in'
     }
 })
-// import Cookies from 'universal-cookie';
+
+
 
 // const nuxtApp = useNuxtApp()
-const state = useCookie('state')
-console.log('useCookie', state.value)
 
 // const headers = useRequestHeaders(['cookie'])
 // console.log('headers', headers)
@@ -94,9 +93,7 @@ const handleToLogin = async () => {
     try {
         const loginRes = await $api.user.login(requestData)
         if (loginRes.code === '0') {
-            // setupAuthToken(loginRes.data.token)
-            const res = useCookie('qiao-token')
-            console.log('token', res)
+            // setupAuthToken(loginRes.data.token
             alert(loginRes.msg + loginRes.data.token)
         }
     } catch (err) {

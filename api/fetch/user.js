@@ -7,19 +7,21 @@ export default ($fetch) => ({
       body: requestData,
     });
   },
-  getUserInfo() {
+  getUserInfo(baseUrl) {
     return $fetch("/userInfo", {
       ...defaultFetchOptions,
       method: "get",
+      baseUrl,
     });
   },
-  async getUserInfo2() {
+  async getUserInfo2(baseUrl) {
     const res = await useAsyncData(
       "userInfo",
       () =>
         $fetch("/userInfo", {
           ...defaultFetchOptions,
           method: "get",
+          baseUrl,
         }),
       {
         transform(res) {
