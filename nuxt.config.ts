@@ -2,7 +2,10 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' }
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+    head: {
+      link: [{ rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css' }]
+    }
   },
   ssr: true,
   runtimeConfig: {
@@ -21,4 +24,14 @@ export default defineNuxtConfig({
   //   },
   //   storage: 'cookies',
   // }
+  css: ['~/assets/scss/main.scss', '~/assets/scss/common.css'],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@/assets/scss/_colors.scss" as *;'
+        }
+      }
+    }
+  }
 })

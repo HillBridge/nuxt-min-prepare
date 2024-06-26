@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Nuxt Config Page</h1>
+        <h1 class="title">Nuxt Config Page</h1>
         <p>从useAppConfig 中获取配置变量: title: {{ title }}, color: {{ color }}</p>
         <p>从useRuntimeConfig 中获取配置变量: apiSecret: {{ apiSecret }}, apiBase: {{ apiBase }}</p>
         <NuxtLink to="/">Back to home page</NuxtLink>
@@ -40,4 +40,13 @@ initialMount()
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use "~/assets/scss/main.scss";
+
+.title {
+    color: $secondary
+}
+</style>
+<style>
+@import url('~/assets/scss/common.css');
+</style>
