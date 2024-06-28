@@ -8,9 +8,9 @@
 </template>
 
 <script setup>
-definePageMeta({
-    middleware: 'auth'
-})
+// definePageMeta({
+//     middleware: 'auth'
+// })
 
 const appConfig = useAppConfig()
 const { $api } = useNuxtApp()
