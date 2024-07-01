@@ -20,7 +20,6 @@
         <div>
             <input type="password" v-model="password" placeholder="password">
         </div>
-        <p>当前token: {{ authToken }}</p>
         <button @click="handleToLogin">客户端调用$fetch去登录</button>
         <div>===================================</div>
         <button @click="getUserInfo">登录获取到token, 用token去获取userInfo</button>
@@ -48,7 +47,7 @@ definePageMeta({
 // console.log('headers', headers)
 
 const { $api, $useFetch } = useNuxtApp()
-const { setupAuthToken, authToken } = useStateStore()
+const { setupAuthToken } = useStateStore()
 const { data: userData } = await useAsyncData('user', () => $fetch('/api/user'))
 // $fetch单独使用, 一共执行2次, 会在服务端执行一次, 在客户端也会执行一次
 // const resD = await $fetch('/api/user')
@@ -93,7 +92,7 @@ const handleToLogin = async () => {
     try {
         const loginRes = await $api.user.login(requestData)
         if (loginRes.code === '0') {
-            // setupAuthToken(loginRes.data.token
+            setupAuthToken(true)
             alert(loginRes.msg + loginRes.data.token)
         }
     } catch (err) {
@@ -107,6 +106,11 @@ const getUserInfo = async () => {
         console.log('userInfoRes', userInfoRes)
         if (userInfoRes.code === '0') {
             alert(userInfoRes.data.userInfo.username)
+        }
+        else {
+            const cookie = useCookies();
+            cookie.deleteCookie("state")
+            alert('token 失效', cookie.value)
         }
     } catch (err) {
     }

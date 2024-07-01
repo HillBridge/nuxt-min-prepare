@@ -8,21 +8,22 @@ export const useStateStore = defineStore('state', () => {
         username.value = name
     }
 
-    const authToken = ref('')
-    const setupAuthToken = (token: string) => {
-        authToken.value = token
+    const isLogined = ref(false)
+    const setupAuthToken = (value: boolean) => {
+        isLogined.value = value
     }
+
     return {
         username,
         setUsername,
-        authToken,
+        isLogined,
         setupAuthToken
     }
 }, {
     persist: {
         storage: persistedState.cookiesWithOptions({
             // httpOnly: true,
-            maxAge: 3600
+            maxAge: 60 * 60 * 20
         }),
     }
 })

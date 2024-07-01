@@ -10,7 +10,7 @@
     </div>
 </template>
 <script setup>
-const { setUsername, authToken } = useStateStore()
+const { setUsername } = useStateStore()
 // 程序最早执行的组件
 console.log('app vue')
 

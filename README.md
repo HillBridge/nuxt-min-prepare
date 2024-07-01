@@ -72,6 +72,10 @@ yarn preview
 7. [结论]可以通过useAsyncData+$fetch来封装api, 既可以客户端使用, 也可以服务端使用, 还可以配置useFetch的options.
 8. api的拦截器在defaultFetchOptions中暴露request和response的钩子函数, 可以用来处理401等情况
 9. 服务端请求的api不会在浏览器的network显示, 如果仅仅只是在服务端请求接口, 那么要添加process.server条件进行判断, 防止客户端重复请求
-
+10. server端与client端数据无法共享问题, 使得在server端获取的token无法向client端传递, 没法通过是否有token做client路由导航(token失效校验)
+    路由鉴权问题: 前端在登陆成功后将pinia中的isLoinged状态设置为true, 并在pinia中使用cookie存储, 不设置httponly, 客户端可以通过useCookie()钩子进行获取, cookie的有效期与服务端保持一致, 这样可以在客户端拿到用户登陆的状态,
+    以此来进行路由鉴权问题.
+    如果用户手动删除本地cookie(自己存的登陆状态), 那么前端会重新跳转到登陆页面, 重新登陆时后端会将原来的token置为失效, 并生成一个新的token放在session中, 并重新设置新的token的过期时间.
+    如果用户手动删除本地cookie(服务端通过session下发的), 那么再次请求接口服务端会返回401状态的token无效的状态码, 前端再次跳转到登陆页面, 并将本地的cookie进行删除.
 
 ```

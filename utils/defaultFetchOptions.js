@@ -8,11 +8,6 @@ export default {
   // mode: "cors",
   onRequest({ options, request }) {
     // 添加请求拦截器
-    const state = useCookie("state"); // 从cookie中获取token
-    // console.log("onRequest-options-useStateStore", request);
-    if (state.value?.authToken) {
-      options.headers.authToken = state.value.authToken;
-    }
     return options;
   },
   onResponse({ response }) {

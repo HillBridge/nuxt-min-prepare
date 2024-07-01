@@ -5,13 +5,13 @@ export const useCounter = () => useState<number>('counter', () => 0)
 export const useColor = () => useState<string>('color', () => 'pink')
 
 export const useAuth = () => {
-    const isLoggedIn = () => {
-        const cookie = useCookie("kkb:sess");
-        console.log('cookie', cookie);
-        return !!cookie?.value;
+    const isLogined = () => {
+        const cookie: any = useCookie("state");
+        // console.log('cookie', cookie.value.isLogined);
+        return !!cookie.value?.isLogined
     };
     
     return {
-        isLoggedIn
+        isLogined
     }
 }
