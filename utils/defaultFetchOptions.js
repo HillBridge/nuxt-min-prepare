@@ -14,6 +14,13 @@ export default {
     // 添加响应拦截器
     // 对token失效或过期后跳转登陆页面可以在这操作
     if (response.status === 200) {
+      if (response._data.code === "401") {
+        const { resetAuthToken } = useStateStore();
+        resetAuthToken();
+        alert("token 失效");
+        return navigateTo("/user/login");
+      }
+
       return response._data;
     }
   },

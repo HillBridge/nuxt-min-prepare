@@ -80,11 +80,6 @@ const getUserInfo = async () => {
         if (userInfoRes.code === '0') {
             alert(userInfoRes.data.userInfo.username)
         }
-        else {
-            const cookie = useCookies();
-            cookie.deleteCookie("state")
-            alert('token 失效', cookie.value)
-        }
     } catch (err) {
     }
 }
