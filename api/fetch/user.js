@@ -11,38 +11,43 @@ export default ($fetch) => ({
     return $fetch("/userInfo", {
       ...defaultFetchOptions,
       method: "get",
-      baseUrl,
+      baseURL: baseUrl,
     });
   },
   async getUserInfo2(baseUrl) {
-    const res = await useAsyncData(
+    const res = useAsyncData(
       "userInfo",
       () =>
         $fetch("/userInfo", {
           ...defaultFetchOptions,
           method: "get",
-          baseUrl,
-        }),
-      {
-        transform(res) {
-          if (res.code === "0") {
-            return res.data.userInfo.age;
-          }
-        },
-      }
+          baseURL: baseUrl,
+        })
+      // {
+      //   transform(res) {
+      //     console.log("dddd", res);
+      //     if (res.code === "0") {
+      //       return res.data.userInfo.age;
+      //     }
+      //   },
+      // }
     );
+    console.log("hhhh", data);
     return {
       ...res,
       data: res.data.value,
     };
   },
-  async getUserInfo2ByLazy() {
+  async getUserInfo2ByLazy(baseUrl) {
+    console.log("getUserInfo2ByLazy---getUserInfo2ByLazy", baseUrl);
     const res = await useAsyncData("userInfo", () =>
-      $fetch("/userInfo", {
+      $fetch("/userInfo?id=2", {
         ...defaultFetchOptions,
         method: "get",
+        baseURL: baseUrl,
       })
     );
+    console.log("bbbbb", res);
     return {
       ...res,
       data: res.data.value,

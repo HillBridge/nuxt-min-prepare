@@ -57,7 +57,7 @@ const getDataFromClient = async () => {
 const serverData = ref({})
 const getDataFromServerByFetch = async () => {
     const { data: resData } = await $api.user.getUserInfo2()
-    console.log('resData--from--server--$fetch111', resData)
+    // console.log('resData--from--server--$fetch111', resData)
     // if (resData.code === '0') {
     //     serverData.value = resData.data.userInfo
     // }
