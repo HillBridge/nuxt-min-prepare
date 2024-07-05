@@ -10,6 +10,10 @@ export default defineNuxtConfig({
   ssr: true,
   runtimeConfig: {
     // 只在服务器端可用的私有键 
+    session: {
+      name: 'nuxt-session',
+      maxAge: 60 * 60 * 24 * 7 // 1 week
+    },
     apiSecret: process.env.NUXT_API_KEY,
     apiBase: process.env.VITE_BASE_URL,
     // public中的键也可以在客户端使用
@@ -17,7 +21,12 @@ export default defineNuxtConfig({
       apiBase: process.env.VITE_BASE_URL,
     }
   },
-  modules: ['@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@nuxt/content'],
+  modules: [
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+    '@nuxt/content',
+    "nuxt-auth-utils"
+  ],
   // piniaPersistedstate: {
   //   cookieOptions: {
   //     httpOnly: true,

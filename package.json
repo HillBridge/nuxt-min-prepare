@@ -16,6 +16,7 @@
     "@pinia/nuxt": "^0.5.1",
     "cookie-universal-nuxt": "^2.2.2",
     "nuxt": "^3.11.2",
+    "nuxt-auth-utils": "^0.1.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.27",

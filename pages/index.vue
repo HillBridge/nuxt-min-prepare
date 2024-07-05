@@ -34,7 +34,10 @@ const color = useColor()
 const { username } = storeToRefs(useStateStore())
 
 const nuxtApp = useNuxtApp()
+const { $api } = useNuxtApp()
 console.log('从nuxtApp中获取username', nuxtApp.$username)
+
+const { data } = await useAsyncData('userInfo', () => $api('/userInfo'))
 
 </script>
 

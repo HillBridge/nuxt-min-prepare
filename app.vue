@@ -14,17 +14,16 @@ const { setUsername } = useStateStore()
 // 程序最早执行的组件
 console.log('app vue')
 
-try {
-    // useFetch 服务端渲染
-    const { data } = await useFetch('http://localhost:3003/userInfo')
-    if (data.value.code === '0') {
-        // setUsername(data.value.data.userInfo.username)
-        useToken(data.value.data.userInfo.love)
-    }
-}
-catch (err) {
-    console.log('err', err)
-}
+// try {
+//     // useFetch 服务端渲染
+//     const { data } = await useFetch('http://localhost:3003/userInfo')
+//     if (data.value.code === '0') {
+//         useToken(data.value.data.userInfo.love)
+//     }
+// }
+// catch (err) {
+//     console.log('err', err)
+// }
 
 
 onMounted(() => {

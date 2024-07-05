@@ -1,13 +1,42 @@
-import FetchApi from "@/api/fetch";
-import UseFetchApi from "@/api/useFetch";
-
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.hook("app:created", async () => {
-    console.log("plugins");
-    // 这里的$fetch是框架提供的工具, 底层是ofetch
-    nuxtApp.provide("api", new FetchApi($fetch));
+  const { session } = useUserSession();
+  const runtimeConfig = useRuntimeConfig();
 
-    // useAsyncFetch + $fetch 完全可以替代useFetch
-    nuxtApp.provide("useFetch", new UseFetchApi());
+  const api = $fetch.create({
+    baseURL: process.server
+      ? runtimeConfig.apiBase
+      : runtimeConfig.public.apiBase,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    timeout: 120000,
+    credentials: "include",
+    onRequest({ request, options, error }) {
+      console.log("onRequest", session.value);
+      const token = session.value?.user?.t;
+      if (token) {
+        const headers = (options.headers ||= {});
+        if (Array.isArray(headers)) {
+          headers.push(["Authorization", `Bearer ${token}`]);
+        } else if (headers instanceof Headers) {
+          headers.set("Authorization", `Bearer ${token}`);
+        } else {
+          headers.Authorization = `Bearer ${token}`;
+        }
+      }
+    },
+    async onResponseError({ response }) {
+      console.log("onResponseError", response.status);
+      if (response.status === 401) {
+        await nuxtApp.runWithContext(() => navigateTo("/user/login"));
+      }
+    },
   });
+
+  // Expose to useNuxtApp().$api
+  return {
+    provide: {
+      api,
+    },
+  };
 });
