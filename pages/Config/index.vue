@@ -11,6 +11,7 @@
 // definePageMeta({
 //     middleware: 'auth'
 // })
+const { data } = await useAsyncData('userInfo', () => $api('/userInfo'))
 
 const appConfig = useAppConfig()
 const { $api } = useNuxtApp()

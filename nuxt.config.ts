@@ -25,8 +25,16 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxt/content',
-    "nuxt-auth-utils"
+    "nuxt-auth-utils",
+    "nuxt-lodash"
   ],
+  lodash: {
+    prefix: "__",
+    prefixSkip: [],
+    upperAfterPrefix: false,
+    exclude: [],
+    alias: [],
+  },
   // piniaPersistedstate: {
   //   cookieOptions: {
   //     httpOnly: true,

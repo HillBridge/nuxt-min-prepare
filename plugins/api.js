@@ -1,7 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  const { session } = useUserSession();
   const runtimeConfig = useRuntimeConfig();
-
   const api = $fetch.create({
     baseURL: process.server
       ? runtimeConfig.apiBase
@@ -11,9 +9,15 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
     timeout: 120000,
     credentials: "include",
-    onRequest({ request, options, error }) {
-      console.log("onRequest", session.value);
-      const token = session.value?.user?.t;
+    async onRequest({ request, options, error }) {
+      const getAuthRes = await $fetch("/api/auth?type=get");
+      const getAuthToken = () => {
+        const { loggedIn, session } = useUserSession();
+        const tokenFromApi = __isEmpty(getAuthRes) ? "" : getAuthRes?.user?.t;
+        if (tokenFromApi) return tokenFromApi;
+        if (loggedIn.value) return session.value?.user?.t;
+      };
+      const token = getAuthToken();
       if (token) {
         const headers = (options.headers ||= {});
         if (Array.isArray(headers)) {
