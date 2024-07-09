@@ -11,10 +11,7 @@
 // definePageMeta({
 //     middleware: 'auth'
 // })
-const { data } = await useAsyncData('userInfo', () => $api('/userInfo'))
-
 const appConfig = useAppConfig()
-const { $api } = useNuxtApp()
 const runtimeConfig = useRuntimeConfig()
 
 const title = appConfig.title
@@ -22,27 +19,6 @@ const color = appConfig.theme.colors.primary
 
 const apiSecret = runtimeConfig.apiSecret
 const apiBase = runtimeConfig.public.apiBase
-
-const serverData = ref(null)
-const clientData = ref(null)
-const initialMount = async () => {
-    // console.log('runtimeConfig999', process.env)
-    if (process.server) {
-        const resData = await $api.user.getUserInfo2ByLazy(runtimeConfig.apiBase)
-        console.log('resData--from--server--$fetch', resData)
-        if (resData?.code === '0') {
-            serverData.value = resData.data.userInfo
-        }
-    } else {
-        // const resData = await $api.user.getUserInfo(runtimeConfig.public.apiBase)
-        // console.log('resData--from--client--$fetch', resData)
-        // if (resData?.code === '0') {
-        //     clientData.value = resData.data.userInfo
-        // }
-    }
-}
-initialMount()
-
 </script>
 
 <style lang="scss" scoped>

@@ -17,14 +17,6 @@
 
 <script setup>
 const { $api } = useNuxtApp()
-const { setupAuthToken } = useStateStore()
-
-// if (!loggedIn.value) {
-//     const { data } = await useAsyncData('userInfo', () => $api('/userInfo'))
-//     console.log('data', data)
-// }
-
-// console.log('lodash', __isEmpty({}))
 
 const username = ref('admin')
 const password = ref('123456')
@@ -32,12 +24,6 @@ const requestData = {
     username: username.value,
     password: password.value
 }
-
-// const data = await useFetch('/login', {
-//     method: "post",
-//     body: requestData,
-// })
-// console.log('data', data)
 
 const handleToLogin = async () => {
     const loginRes = await $api('/login', {
@@ -47,18 +33,8 @@ const handleToLogin = async () => {
     console.log('loginRes', loginRes)
     if (loginRes.code === '0') {
         const token = loginRes.data.token
-        const resData = await $fetch(`/api/auth?type=set&token=${token}`)
-        console.log('resData', resData)
+        await $fetch(`/api/auth?type=set&token=${token}`)
     }
-
-    // try {
-    //     const loginRes = await $api.user.login(requestData)
-    //     if (loginRes.code === '0') {
-    //         setupAuthToken(true)
-    //         alert(loginRes.msg + loginRes.data.token)
-    //     }
-    // } catch (err) {
-    // }
 }
 </script>
 

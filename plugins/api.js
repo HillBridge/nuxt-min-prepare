@@ -10,21 +10,27 @@ export default defineNuxtPlugin((nuxtApp) => {
     timeout: 120000,
     credentials: "include",
     async onRequest({ request, options, error }) {
-      if (process.server) {
-        const { loggedIn, session } = useUserSession();
-        if (loggedIn.value) {
-          const token = session.value?.user?.t;
-          const headers = (options.headers ||= {});
-          headers.Authorization = `Bearer ${token}`;
-        }
+      // 请求既可以从客户端来, 也可以在服务端来
+      const { loggedIn, session } = useUserSession();
+      const getAuthRes = await $fetch("/api/auth?type=get");
+      const getToken = () => {
+        const interfaceToken = __isEmpty(getAuthRes)
+          ? false
+          : getAuthRes?.user?.t;
+        const apiToken = loggedIn.value ? session.value?.user?.t : "";
+        return interfaceToken || apiToken;
+      };
+      const token = getToken();
+      console.log("onRequest", token);
+      if (token) {
+        const headers = (options.headers ||= {});
+        headers.Authorization = `Bearer ${token}`;
       }
     },
     async onResponseError({ response }) {
-      if (process.server) {
-        console.log("onResponseError", response.status);
-        if (response.status === 401) {
-          await nuxtApp.runWithContext(() => navigateTo("/user/login"));
-        }
+      console.log("onResponseError", response.status);
+      if (response.status === 401) {
+        await nuxtApp.runWithContext(() => navigateTo("/user/login"));
       }
     },
   });

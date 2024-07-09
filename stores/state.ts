@@ -8,20 +8,9 @@ export const useStateStore = defineStore('state', () => {
         username.value = name
     }
 
-    const isLogined = ref(false)
-    const setupAuthToken = (value: boolean) => {
-        isLogined.value = value
-    }
-    const resetAuthToken = (value: boolean) => { 
-        isLogined.value = false
-    }
-
     return {
         username,
         setUsername,
-        isLogined,
-        setupAuthToken,
-        resetAuthToken
     }
 }, {
     persist: {

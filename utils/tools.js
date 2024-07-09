@@ -7,5 +7,3 @@ export const setSessionStorage = (key, val) => {
   if (!key) return;
   return window.sessionStorage.setItem(key, val);
 };
-
-export const isLogined = () => getSessionStorage(authKey);
