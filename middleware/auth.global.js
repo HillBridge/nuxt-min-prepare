@@ -1,23 +1,15 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { resetAuthToken } = useStateStore();
-
-  const getAuthRes = await $fetch("/api/auth?type=get");
-  const { loggedIn } = await useUserSession();
-  const isLoggedIn = () => {
-    const isApiLoggedIn = __isEmpty(getAuthRes) ? false : !!getAuthRes?.user?.t;
-    if (isApiLoggedIn) return true;
-    return loggedIn.value;
-  };
-
-  //console.log("middleware-auth-global", getAuthRes);
-  if (!isLoggedIn()) {
-    console.log("没有登陆", from.fullPath, to.fullPath);
-    if (from.fullPath === "/user/login" && to.fullPath === "/user/login")
-      return;
-    if (from.fullPath !== "/user/login" && to.fullPath === "/user/login")
-      return;
-    const router = useRouter();
-    resetAuthToken();
-    return router.push({ path: "/user/login" });
+  if (process.client) {
+    console.log("defineNuxtRouteMiddleware", from.fullPath, to.fullPath);
+    const getAuthRes = await $fetch("/api/auth?type=get"); // 本地删除cooKie, 通过结果获取当前存储cookie的最新数据, useUserSession方法有延迟
+    const isLoggedIn = __isEmpty(getAuthRes) ? false : !!getAuthRes?.user?.t;
+    if (!isLoggedIn) {
+      console.log("没有登陆", from.fullPath, to.fullPath);
+      if (from.fullPath === "/user/login" && to.fullPath === "/user/login")
+        return;
+      if (from.fullPath !== "/user/login" && to.fullPath === "/user/login")
+        return;
+      return navigateTo("/user/login");
+    }
   }
 });

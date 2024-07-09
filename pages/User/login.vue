@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login-wrap">
         <h1>login Page</h1>
         <div style="margin: 20px 0;">
             <input type="text" v-model="username" placeholder="username">

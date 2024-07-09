@@ -25,12 +25,12 @@
 
 <script setup>
 
-definePageMeta({
-    layout: 'custom',
-    layoutTransition: {
-        name: 'slide-in'
-    }
-})
+// definePageMeta({
+//     layout: 'custom',
+//     layoutTransition: {
+//         name: 'slide-in'
+//     }
+// })
 
 
 

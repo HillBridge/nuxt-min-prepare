@@ -63,6 +63,11 @@ yarn preview
    (1) nuxt服务端渲染的必然结果, 服务端无法获取到localStorage和sessionStorage的数据, 所以不能将token存在这里, 其次如果用cookie形式, 那么cookie必然不能设置httpOnly为true, 这样客户端就只能开放cookie, 从安全
    角度而言有隐患, 比如跨站脚本攻击, 而session-cookie的方式可以设置cookie一系列安全策略, 大大增加了token防篡取的概率, 另外每次客户端端请求将token放在请求头的cookie中的形式, 以https的角度会对请求头数据进行加密, 更加安全.
    (2) 如果解决刷新后token不丢失的问题, 那么token必然存在客户端, 这样可以脱离客户端维护token, 完全由服务端和浏览器进行维护.
+一、以上第一条不是最优解决方案, 留作学习记录, 最终nuxt登陆方式如下:
+   前后端仍然以jwt的方式进行通信, 后端来维护token, 前端借助nuxt-session-utils模块插件将token缓存在session中, 实质是在登录接口后将获取到的token存在session中, 此时调用自定义后端接口并调用相应session(set)api进行设置,
+   随后会通过http方式自动将token存在cookie中, api接口钩子函数会获取当前session中存储的token, 如果有就赋值到请求头中, 如果没有就调用后端api, 前端传递到空token后端报401后重新跳转到登陆页登录.
+   路由中间件也是每次都获取当前存储到session, 看是否可以获取到存储token, 没有则重定向到登陆页面.
+   此方案可以解决本地删除cookie方式, 如果删除后不刷新, 那么就有后端控制token的时效性, 如果刷新, 那么前端会走路由以及接口中间件, 查看session中是否可以拿到token.
 
 2. 对$fetch(客户端获取api), UseFetch(useAsyncData+$fetch服务端获取api)进行二次封装. [可以考虑用axios作为替换方案]
 3. 引入pinia来管理全局的状态, useState可作为局部工具或小项目使用.

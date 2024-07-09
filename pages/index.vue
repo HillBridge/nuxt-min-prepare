@@ -43,7 +43,7 @@ const { data } = await useAsyncData('userInfo', () => $api('/userInfo'))
 
 <style lang="scss" scoped>
 .home-wrap {
-    text-align: center;
+    // text-align: center;
 
     h1 {
         color: blue;
