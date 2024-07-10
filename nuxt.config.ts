@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     }
   },
   ssr: true,
+  // sourcemap: false,
   runtimeConfig: {
     // 只在服务器端可用的私有键 
     session: {

@@ -11,6 +11,6 @@ const title = 'Header Component'
 
 <style lang="scss" scoped>
 .header-container {
-    background-color: green;
+    background-color: pink;
 }
 </style>
