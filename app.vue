@@ -11,7 +11,10 @@
 </template>
 <script setup>
 // 程序最早执行的组件
-console.log('app vue')
+// 可以在浏览器每次刷新的时候重新从后台获取数据(敏感数据并不本地化)
+const { initUserStoreData } = useStateStore()
+initUserStoreData()
+
 </script>
 <style>
 .page-enter-active,

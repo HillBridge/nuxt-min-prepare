@@ -1,4 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
+  console.log("plugins--api");
   const runtimeConfig = useRuntimeConfig();
   const api = $fetch.create({
     baseURL: process.server
@@ -21,14 +22,14 @@ export default defineNuxtPlugin((nuxtApp) => {
         return interfaceToken || apiToken;
       };
       const token = getToken();
-      console.log("onRequest", token);
+      // console.log("onRequest", token);
       if (token) {
         const headers = (options.headers ||= {});
         headers.Authorization = `Bearer ${token}`;
       }
     },
     async onResponseError({ response }) {
-      console.log("onResponseError", response.status);
+      // console.log("onResponseError", response.status);
       if (response.status === 401) {
         await nuxtApp.runWithContext(() => navigateTo("/user/login"));
       }

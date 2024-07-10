@@ -4,6 +4,7 @@
         <h1>Home Page {{ color }}</h1>
         <h2>get token from composables(客户端渲染): {{ token }}</h2>
         <h2>get username from pinia(服务端渲染): {{ username }}</h2>
+        <button @click="handleChangeUsername">change uername</button>
         <HomeWelcome />
         <div>
             <NuxtLink to="/foo">Go to foo page</NuxtLink>
@@ -26,14 +27,18 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
 // 从composables组合函数中获取
+import { storeToRefs } from "pinia";
 const token = useToken()
 const color = useColor()
-// 从pinia中获取, storeToRefs转为响应式数据
-const { username } = storeToRefs(useStateStore())
 
-const nuxtApp = useNuxtApp()
+const userStore = useStateStore()
+const { username } = storeToRefs(userStore)
+console.log('username', username)
+const handleChangeUsername = () => {
+    userStore.setUsername('119')
+}
+
 const { $api } = useNuxtApp()
 // console.log('从nuxtApp中获取username', nuxtApp.$username)
 
