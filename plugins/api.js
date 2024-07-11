@@ -18,7 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (loggedIn.value) {
           return session.value?.user?.t;
         }
-        const getAuthRes = await $fetch("/api/auth?type=get");
+        const getAuthRes = await $fetch("/api/auth/get");
         const interfaceToken = __isEmpty(getAuthRes) ? "" : getAuthRes?.user?.t;
         return interfaceToken;
       };

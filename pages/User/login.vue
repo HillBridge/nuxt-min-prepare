@@ -33,7 +33,7 @@ const handleToLogin = async () => {
     console.log('loginRes', loginRes)
     if (loginRes.code === '0') {
         const token = loginRes.data.token
-        await $fetch(`/api/auth?type=set&token=${token}`)
+        await $fetch(`/api/auth/set?&token=${token}`)
     }
 }
 </script>
