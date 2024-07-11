@@ -5,6 +5,8 @@
         <h2>get token from composables(客户端渲染): {{ token }}</h2>
         <h2>get username from pinia(服务端渲染): {{ username }}</h2>
         <button @click="handleChangeUsername">change uername</button>
+        <h2>服务端common data: username:{{ commonState.username }}, age: {{ commonState.age }}, love: {{ commonState.love
+            }}</h2>
         <HomeWelcome />
         <div>
             <NuxtLink to="/foo">Go to foo page</NuxtLink>
@@ -32,9 +34,10 @@ import { storeToRefs } from "pinia";
 const token = useToken()
 const color = useColor()
 
+const { commonState } = useCommonStore()
+
 const userStore = useStateStore()
 const { username } = storeToRefs(userStore)
-console.log('username', username)
 const handleChangeUsername = () => {
     userStore.setUsername('119')
 }

@@ -13,13 +13,14 @@ export default defineNuxtPlugin((nuxtApp) => {
     async onRequest({ request, options, error }) {
       // 请求既可以从客户端来, 也可以在服务端来
       const { loggedIn, session } = useUserSession();
-      const getAuthRes = await $fetch("/api/auth?type=get");
-      const getToken = () => {
-        const interfaceToken = __isEmpty(getAuthRes)
-          ? false
-          : getAuthRes?.user?.t;
-        const apiToken = loggedIn.value ? session.value?.user?.t : "";
-        return interfaceToken || apiToken;
+
+      const getToken = async () => {
+        if (loggedIn.value) {
+          return session.value?.user?.t;
+        }
+        const getAuthRes = await $fetch("/api/auth?type=get");
+        const interfaceToken = __isEmpty(getAuthRes) ? "" : getAuthRes?.user?.t;
+        return interfaceToken;
       };
       const token = getToken();
       // console.log("onRequest", token);
