@@ -24,6 +24,9 @@
             <NuxtLink to="/config">Go to config page</NuxtLink>
         </div>
 
+        <div>
+            <NuxtLink to="/prime">Go to prime page</NuxtLink>
+        </div>
         <Footer />
     </div>
 </template>
