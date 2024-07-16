@@ -49,11 +49,11 @@ export default defineNuxtConfig({
     },
     options: {
       theme: {
-        preset: Aura,
+        preset: Lara,
         options: {
           prefix: 'p',
           darkModeSelector: '.my-app-dark',
-          cssLayer: true,
+          // cssLayer: false,
           
           // cssLayer: {
           //   name: 'primevue',
