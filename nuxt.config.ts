@@ -39,8 +39,20 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     "nuxt-lodash",
     "@primevue/nuxt-module",
-    "@nuxtjs/tailwindcss"
+    "@nuxtjs/tailwindcss",
+    '@vee-validate/nuxt'
   ],
+  veeValidate: {
+    // disable or enable auto imports
+    autoImports: true,
+    // Use different names for components
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage',
+    },
+  },
   primevue: {
     // autoImport: true, 默认true
     //usePrimeVue: true,
