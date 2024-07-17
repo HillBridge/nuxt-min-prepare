@@ -2,8 +2,18 @@
     <div>
         <NuxtLayout>
             <div>
+                <PrimeConfirmDialog group="templating">
+                    <template #message="slotProps">
+                        <div
+                            class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                            <i :class="slotProps.message.icon" class="!text-6xl text-primary-500"></i>
+                            <p>{{ slotProps.message.message }}</p>
+                        </div>
+                    </template>
+                </PrimeConfirmDialog>
                 <NuxtLoadingIndicator color="red" />
                 <NuxtPage />
+                <PrimeToast />
             </div>
 
         </NuxtLayout>
@@ -19,6 +29,10 @@ await callOnce(initCommonStore)
 
 </script>
 <style>
+html {
+    font-size: 14px;
+}
+
 .page-enter-active,
 .page-leave-active {
     transition: all 0.4s;

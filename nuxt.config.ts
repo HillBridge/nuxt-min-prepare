@@ -49,7 +49,7 @@ export default defineNuxtConfig({
     },
     options: {
       theme: {
-        preset: Lara,
+        preset: Aura,
         options: {
           prefix: 'p',
           darkModeSelector: '.my-app-dark',
