@@ -15,7 +15,7 @@ const initialValues = {
 };
 
 export const useVeeStore = defineStore("vee", () => {
-  const toast = useToast();
+  const { $message } = useNuxtApp();
   const { errors, defineField, handleSubmit, handleReset } = useForm({
     validationSchema: schema,
     initialValues,
@@ -26,15 +26,11 @@ export const useVeeStore = defineStore("vee", () => {
   const [password, passwordProps] = defineField("password");
 
   const signup = handleSubmit((values, { resetForm, setValues }) => {
-    // send values to API
     console.log("pinia-store-Submit", values);
     // setValues({ name: "", email: "", password: "" });
     resetForm();
-    toast.add({
-      severity: "success",
-      summary: "successfully submitted",
-      detail: "You have accepted",
-      life: 3000,
+    $message("success", "successfully submitted", () => {
+      console.log("callback successful");
     });
   });
 
