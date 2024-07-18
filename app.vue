@@ -13,7 +13,7 @@
                 </PrimeConfirmDialog>
                 <NuxtLoadingIndicator color="red" />
                 <NuxtPage />
-                <PrimeToast position="top-center" group="tc" />
+                <PrimeToast position="top-center" />
             </div>
 
         </NuxtLayout>

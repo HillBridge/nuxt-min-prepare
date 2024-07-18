@@ -71,29 +71,57 @@
             <form @submit="veeStore.signup" @reset="veeStore.reset" novalidate class="from-wrap">
                 <h5 class="mb-2">表单项验证+pinia</h5>
                 <div class="mb-3">
-                    <div class="from-width">
-                        <label for="username" class="mr-2 form-label">Username</label>
+                    <div class="from-item flex justify-between">
+                        <label for="username" class="form-label text-right">Username</label>
                         <PrimeInputText id="username" v-model="name" v-bind="nameProps" />
                     </div>
                     <div class="validate-error form-validate">{{ errors.name }}</div>
                 </div>
                 <div class="mb-3">
-                    <div class="from-width">
-                        <label for="email" class="mr-2 form-label">Email</label>
+                    <div class="from-item flex justify-between">
+                        <label for="email" class="form-label text-right">Email</label>
                         <PrimeInputText id="email" v-model="email" v-bind="emailProps" />
                     </div>
                     <div class="validate-error form-validate">{{ errors.email }}</div>
                 </div>
                 <div class="mb-3">
-                    <div class="from-width">
-                        <label for="password" class="mr-2 form-label">Password</label>
+                    <div class="from-item flex justify-between">
+                        <label for="password" class="form-label text-right">Password</label>
                         <PrimeInputText id="password" type="password" v-model="password" v-bind="passwordProps" />
                     </div>
                     <div class="validate-error form-validate">{{ errors.password }}</div>
                 </div>
+                <div class="mb-3">
+                    <div class="from-item flex justify-between">
+                        <label for="pizza" class="form-label text-right">Pizza</label>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center">
+                                <PrimeRadioButton v-model="ingredient" inputId="ingredient1" name="pizza"
+                                    v-bind="ingredientProps" value="Cheese" />
+                                <label for="ingredient1" class="ml-2">Cheese</label>
+                            </div>
+                            <div class="flex items-center">
+                                <PrimeRadioButton v-model="ingredient" inputId="ingredient2" name="pizza"
+                                    v-bind="ingredientProps" value="Mushroom" />
+                                <label for="ingredient2" class="ml-2">Mushroom</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="validate-error form-validate">{{ errors.ingredient }}</div>
+                </div>
+                <div class="mb-3">
+                    <div class="from-item flex justify-between">
+                        <label for="city" class="form-label text-right">City</label>
+                        <PrimeSelect :options="cities" optionLabel="name" optionValue="code" v-model="city"
+                            v-bind="cityProps" placeholder="Select a City" class="w-52" />
+                    </div>
+                    <div class="validate-error form-validate">{{ errors.city }}</div>
+                </div>
+                <div class="flex justify-center ml-10">
+                    <PrimeButton type="submit">Submit</PrimeButton>
+                    <PrimeButton type="reset" class="ml-5">Reset</PrimeButton>
+                </div>
 
-                <PrimeButton type="submit">Submit</PrimeButton>
-                <PrimeButton type="reset" class="ml-5">Reset</PrimeButton>
             </form>
         </div>
     </div>
@@ -105,8 +133,16 @@ import { Field, Form, ErrorMessage } from 'vee-validate';
 import { object, string } from 'yup';
 
 const veeStore = useVeeStore();
-const { name, nameProps, email, emailProps, password, passwordProps, errors } =
+const { name, nameProps, email, emailProps, password, passwordProps, ingredient, ingredientProps, city, cityProps, errors } =
     storeToRefs(veeStore);
+
+const cities = ref([
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' }
+]);
 
 const isRequired = (value) => {
     if (value && value.trim()) {

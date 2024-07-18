@@ -6,12 +6,16 @@ const schema = object({
   name: string().required(),
   email: string().email().required(),
   password: string().min(6).required(),
+  ingredient: string().required(),
+  city: string().required(),
 });
 
 const initialValues = {
   name: "test",
   email: "test@example.com",
   password: "12345678",
+  ingredient: "Mushroom",
+  city: "",
 };
 
 export const useVeeStore = defineStore("vee", () => {
@@ -24,17 +28,22 @@ export const useVeeStore = defineStore("vee", () => {
   const [name, nameProps] = defineField("name");
   const [email, emailProps] = defineField("email");
   const [password, passwordProps] = defineField("password");
+  const [ingredient, ingredientProps] = defineField("ingredient");
+  const [city, cityProps] = defineField("city");
 
   const signup = handleSubmit((values, { resetForm, setValues }) => {
     console.log("pinia-store-Submit", values);
     // setValues({ name: "", email: "", password: "" });
-    resetForm();
+    // resetForm();
     $message("success", "successfully submitted", () => {
       console.log("callback successful");
     });
   });
 
-  const reset = handleReset;
+  const reset = () => {
+    $message("info", "successfully reseted");
+    handleReset();
+  };
 
   return {
     errors,
@@ -44,6 +53,10 @@ export const useVeeStore = defineStore("vee", () => {
     emailProps,
     password,
     passwordProps,
+    ingredient,
+    ingredientProps,
+    city,
+    cityProps,
     signup,
     reset,
   };

@@ -44,7 +44,7 @@
                 </PrimeInputGroup>
             </div>
         </div>
-        <div class="card flex justify-center mt-4 mt-10">
+        <div class="card flex justify-center mt-4">
             <div class="mr-4">
                 <PrimeInputMask id="basic" v-model="value2" mask="99-999999" placeholder="99-999999" />
             </div>
@@ -101,7 +101,7 @@
                 </PrimePassword>
             </div>
         </div>
-        <div class="card flex justify-center mt-4 mt-10">
+        <div class="card flex justify-center mt-4">
             <div class="mr-4 flex justify-center">
                 <div v-for="category in categories" :key="category.key" class="mr-2">
                     <PrimeRadioButton v-model="selectedCategory" :inputId="category.key" name="dynamic"
@@ -125,7 +125,7 @@
             </div>
             <div class="mr-4"></div>
         </div>
-        <div class="card flex justify-center mt-4 mt-10">
+        <div class="card flex justify-center mt-4">
             <div class="mr-4">
                 <PrimeDataTable size="small" :value="customers" paginator :rows="5"
                     :rowsPerPageOptions="[5, 10, 20, 50]" :pt="{
