@@ -2,7 +2,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   console.log("plugins--api");
   const runtimeConfig = useRuntimeConfig();
   const api = $fetch.create({
-    baseURL: process.server
+    baseURL: nuxtApp.$server
       ? runtimeConfig.apiBase
       : runtimeConfig.public.apiBase,
     headers: {
